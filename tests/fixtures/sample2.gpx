@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="gpxkit test fixture" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Sample Track 2</name>
+    <trkseg>
+      <trkpt lat="35.6842" lon="139.7701">
+        <ele>12</ele>
+        <time>2026-07-15T00:15:00Z</time>
+      </trkpt>
+      <trkpt lat="35.6852" lon="139.7711">
+        <ele>20</ele>
+        <time>2026-07-15T00:20:00Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

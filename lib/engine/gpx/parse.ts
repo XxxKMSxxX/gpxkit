@@ -22,15 +22,15 @@ import type { ParsedGPX } from "@we-gold/gpxjs";
 export function parseGpxFile(gpxSource: string): ParsedGPX {
   const [parsed, error] = parseGPX(gpxSource);
   if (error !== null) {
-    throw new Error(`GPXファイルの解析に失敗しました: ${error.message}`);
+    throw new Error(`Failed to parse GPX file: ${error.message}`);
   }
 
   const root = parsed.xml.documentElement;
   if (root === null || root.getElementsByTagName("parsererror").length > 0 || root.tagName === "parsererror") {
-    throw new Error("GPXファイルの解析に失敗しました: 不正なXMLです");
+    throw new Error("Failed to parse GPX file: invalid XML");
   }
   if (root.tagName.toLowerCase() !== "gpx") {
-    throw new Error("GPXファイルの解析に失敗しました: <gpx>ルート要素が見つかりません");
+    throw new Error("Failed to parse GPX file: missing <gpx> root element");
   }
 
   return parsed;

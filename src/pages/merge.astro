@@ -1,0 +1,13 @@
+---
+import Base from "@/src/layouts/Base.astro";
+import MergeClient from "@/src/components/MergeClient";
+---
+
+<Base
+  title="Merge GPX Files Online — GPXKit"
+  description="Combine multiple GPX tracks into a single file, entirely in your browser. Nothing is uploaded."
+>
+  <h1>Merge GPX Files</h1>
+  <p>Combine two or more GPX tracks into one file. Nothing ever leaves your browser.</p>
+  <MergeClient client:only="react" />
+</Base>

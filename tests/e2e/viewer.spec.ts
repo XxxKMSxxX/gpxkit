@@ -8,7 +8,7 @@ const sampleGpxPath = path.join(__dirname, "../fixtures/sample.gpx");
 test("dropping a GPX file renders stats and the track on the map", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.getByText("GPXファイルをドラッグ&ドロップ")).toBeVisible();
+  await expect(page.getByText("Drag & drop a GPX file")).toBeVisible();
 
   const fileInput = page.locator('input[type="file"]');
   await fileInput.setInputFiles(sampleGpxPath);
@@ -18,7 +18,7 @@ test("dropping a GPX file renders stats and the track on the map", async ({ page
   await expect(page.getByText("+5 m")).toBeVisible();
   await expect(page.getByText("-7 m")).toBeVisible();
   await expect(page.getByText("3", { exact: true })).toBeVisible();
-  await expect(page.getByText("10分")).toBeVisible();
+  await expect(page.getByText("10m", { exact: true })).toBeVisible();
 
   // MapLibre renders into a <canvas> inside the map container.
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
@@ -34,5 +34,5 @@ test("an invalid file shows an error instead of crashing", async ({ page }) => {
     buffer: Buffer.from("not xml at all"),
   });
 
-  await expect(page.getByRole("alert")).toContainText("GPXファイルの解析に失敗しました");
+  await expect(page.getByRole("alert")).toContainText("Failed to parse GPX file");
 });

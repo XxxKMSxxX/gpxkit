@@ -6,17 +6,17 @@ type TrackStatsProps = {
 
 export default function TrackStats({ summary }: TrackStatsProps) {
   const stats: { label: string; value: string }[] = [
-    { label: "距離", value: `${(summary.totalDistanceMeters / 1000).toFixed(2)} km` },
+    { label: "Distance", value: `${(summary.totalDistanceMeters / 1000).toFixed(2)} km` },
     {
-      label: "獲得標高",
+      label: "Elevation gain",
       value: summary.elevationGainMeters !== null ? `+${Math.round(summary.elevationGainMeters)} m` : "—",
     },
     {
-      label: "喪失標高",
+      label: "Elevation loss",
       value: summary.elevationLossMeters !== null ? `-${Math.round(summary.elevationLossMeters)} m` : "—",
     },
-    { label: "ポイント数", value: summary.pointCount.toLocaleString() },
-    { label: "記録時間", value: formatDuration(summary.totalDurationSeconds) },
+    { label: "Points", value: summary.pointCount.toLocaleString() },
+    { label: "Duration", value: formatDuration(summary.totalDurationSeconds) },
   ];
 
   return (
@@ -35,5 +35,5 @@ function formatDuration(totalSeconds: number): string {
   if (totalSeconds <= 0) return "—";
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
-  return hours > 0 ? `${hours}時間${minutes}分` : `${minutes}分`;
+  return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
 }

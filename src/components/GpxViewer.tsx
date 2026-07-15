@@ -13,7 +13,7 @@ type ViewerState =
 export default function GpxViewer() {
   const [state, setState] = useState<ViewerState>({ status: "empty" });
 
-  const handleFile = useCallback(async (file: File) => {
+  const handleFiles = useCallback(async ([file]: File[]) => {
     try {
       const text = await file.text();
       const parsed = parseGpxFile(text);
@@ -30,7 +30,7 @@ export default function GpxViewer() {
 
   return (
     <div>
-      <FileDropZone onFile={handleFile} />
+      <FileDropZone onFiles={handleFiles} />
 
       {state.status === "error" && (
         <p role="alert" style={{ color: "#e63946", marginTop: "1rem" }}>

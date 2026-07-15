@@ -1,19 +1,21 @@
 import { useCallback, useRef, useState } from "react";
 
 type FileDropZoneProps = {
-  onFile: (file: File) => void;
+  onFiles: (files: File[]) => void;
+  multiple?: boolean;
 };
 
-export default function FileDropZone({ onFile }: FileDropZoneProps) {
+export default function FileDropZone({ onFiles, multiple = false }: FileDropZoneProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const handleFiles = useCallback(
-    (files: FileList | null) => {
-      const file = files?.[0];
-      if (file) onFile(file);
+    (fileList: FileList | null) => {
+      if (!fileList || fileList.length === 0) return;
+      const files = multiple ? Array.from(fileList) : [fileList[0]];
+      onFiles(files);
     },
-    [onFile],
+    [onFiles, multiple],
   );
 
   return (
@@ -42,14 +44,15 @@ export default function FileDropZone({ onFile }: FileDropZoneProps) {
         cursor: "pointer",
       }}
     >
-      <p>GPXファイルをドラッグ&ドロップ、またはクリックして選択</p>
+      <p>Drag & drop {multiple ? "GPX files" : "a GPX file"} here, or click to browse</p>
       <p style={{ fontSize: "0.85rem", color: "#666" }}>
-        ファイルはブラウザ内で処理され、どこにもアップロードされません。
+        Files are processed in your browser — nothing is ever uploaded.
       </p>
       <input
         ref={inputRef}
         type="file"
         accept=".gpx"
+        multiple={multiple}
         onChange={(e) => handleFiles(e.target.files)}
         style={{ display: "none" }}
       />
