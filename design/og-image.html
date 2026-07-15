@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: 'Outfit';
+    src: url('file:///Users/kimurashun/.claude/skills/canvas-design/canvas-fonts/Outfit-Bold.ttf') format('truetype');
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    src: url('file:///Users/kimurashun/.claude/skills/canvas-design/canvas-fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1200px;
+    height: 630px;
+    background: #0d1117;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Outfit', sans-serif;
+  }
+  svg { position: absolute; top: 0; left: 0; }
+  .grain {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  .wordmark {
+    position: absolute;
+    left: 96px;
+    top: 96px;
+    font-size: 64px;
+    font-weight: 700;
+    color: #f1f1f1;
+    letter-spacing: -1px;
+  }
+  .wordmark .accent { color: #e63946; }
+  .tagline {
+    position: absolute;
+    left: 98px;
+    top: 176px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+    color: #6b7280;
+    text-transform: uppercase;
+  }
+  .legend {
+    position: absolute;
+    right: 96px;
+    bottom: 88px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    color: #4b5563;
+    text-align: right;
+    line-height: 1.9;
+    text-transform: uppercase;
+  }
+  .legend .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e63946;
+    margin-right: 8px;
+  }
+  .corner-mark {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #374151;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <svg width="1200" height="630" viewBox="0 0 1200 630">
+    <!-- faint graticule -->
+    <g stroke="#1c232e" stroke-width="1">
+      <line x1="0" y1="157" x2="1200" y2="157" />
+      <line x1="0" y1="315" x2="1200" y2="315" />
+      <line x1="0" y1="472" x2="1200" y2="472" />
+      <line x1="300" y1="0" x2="300" y2="630" />
+      <line x1="600" y1="0" x2="600" y2="630" />
+      <line x1="900" y1="0" x2="900" y2="630" />
+    </g>
+
+    <!-- the route: a single deliberate trace, off-center, lower-right two-thirds -->
+    <path d="M 470 250
+             C 520 230, 560 260, 600 300
+             C 640 340, 630 390, 670 420
+             C 710 450, 760 430, 800 460
+             C 840 490, 850 540, 900 555"
+          fill="none" stroke="#e63946" stroke-width="3.5" stroke-linecap="round" />
+
+    <!-- start point -->
+    <circle cx="470" cy="250" r="6" fill="#e63946" />
+    <circle cx="470" cy="250" r="11" fill="none" stroke="#e63946" stroke-width="1.2" opacity="0.5" />
+
+    <!-- end point -->
+    <circle cx="900" cy="555" r="6" fill="#f1f1f1" />
+    <circle cx="900" cy="555" r="11" fill="none" stroke="#f1f1f1" stroke-width="1.2" opacity="0.4" />
+  </svg>
+
+  <div class="wordmark">GPX<span class="accent">Kit</span></div>
+  <div class="tagline">View · Merge · Simplify · Trim — entirely in your browser</div>
+
+  <div class="legend">
+    <div><span class="dot"></span>trace recorded</div>
+    <div>N 35°40&#8217; &nbsp; E 139°46&#8217;</div>
+  </div>
+
+  <div class="corner-mark" style="left: 96px; bottom: 88px;">GPXKIT.COM</div>
+  <div class="corner-mark" style="right: 96px; top: 96px;">NO. 002</div>
+</body>
+</html>

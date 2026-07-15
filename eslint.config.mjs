@@ -31,5 +31,5 @@ export default tseslint.config(
       ],
     },
   },
-  globalIgnores(["dist/", ".astro/", "node_modules/", "playwright-report/", "test-results/"]),
+  globalIgnores(["dist/", ".astro/", "node_modules/", "playwright-report/", "test-results/", "design/"]),
 );
