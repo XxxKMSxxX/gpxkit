@@ -1,9 +1,11 @@
 import { useCallback, useState } from "react";
 import type { GeoJSON as GpxGeoJSON } from "@we-gold/gpxjs";
 import { parseGpxFile, summarizeTracks, type TrackSummary } from "@/lib/engine/gpx";
+import { DEMO_TRACK_URL, fetchAsFile } from "@/src/lib/demoFiles";
 import FileDropZone from "./FileDropZone";
 import MapView from "./MapView";
 import TrackStats from "./TrackStats";
+import SampleLink from "./SampleLink";
 
 type ViewerState =
   | { status: "empty" }
@@ -28,9 +30,19 @@ export default function GpxViewer() {
     }
   }, []);
 
+  const loadSample = useCallback(async () => {
+    try {
+      const file = await fetchAsFile(DEMO_TRACK_URL, "sample-hike.gpx");
+      await handleFiles([file]);
+    } catch (error) {
+      setState({ status: "error", message: error instanceof Error ? error.message : String(error) });
+    }
+  }, [handleFiles]);
+
   return (
     <div>
       <FileDropZone onFiles={handleFiles} />
+      <SampleLink label="Try a sample track" onClick={loadSample} />
 
       {state.status === "error" && (
         <p role="alert" className="mt-4 font-mono text-sm text-trace">

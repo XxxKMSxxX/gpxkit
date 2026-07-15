@@ -1,0 +1,17 @@
+---
+import Base from "@/src/layouts/Base.astro";
+import GpxViewer from "@/src/components/GpxViewer";
+---
+
+<Base
+  title="GPXKit — View GPS Tracks in Your Browser"
+  description="Drop a GPX file to view your route on a map and see distance, elevation, and duration — entirely in your browser, nothing uploaded."
+>
+  <p class="mb-1 font-mono text-xs tracking-[0.2em] text-faint uppercase">No. 001 — View</p>
+  <h1 class="mb-3 text-4xl font-bold tracking-tight">View a GPX track</h1>
+  <p class="mb-10 max-w-xl text-muted">
+    Drop a GPS track to see it plotted on a map with distance, elevation, and duration. Nothing
+    ever leaves your browser.
+  </p>
+  <GpxViewer client:only="react" />
+</Base>

@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
 import type { ParsedGPX } from "@we-gold/gpxjs";
 import { parseGpxFile, summarizeTracks, simplifyTrack } from "@/lib/engine/gpx";
+import { DEMO_TRACK_URL, fetchAsFile } from "@/src/lib/demoFiles";
 import FileDropZone from "./FileDropZone";
 import MapView from "./MapView";
 import TrackStats from "./TrackStats";
 import DownloadButton from "./DownloadButton";
+import SampleLink from "./SampleLink";
 
 const DEFAULT_TOLERANCE_METERS = 10;
 
@@ -25,6 +27,15 @@ export default function SimplifyClient() {
       setParsed(null);
     }
   }, []);
+
+  const loadSample = useCallback(async () => {
+    try {
+      const file = await fetchAsFile(DEMO_TRACK_URL, "sample-hike.gpx");
+      await handleFiles([file]);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  }, [handleFiles]);
 
   const result = useMemo(() => {
     if (!parsed) return null;
@@ -49,6 +60,7 @@ export default function SimplifyClient() {
   return (
     <div>
       <FileDropZone onFiles={handleFiles} />
+      <SampleLink label="Try a sample track" onClick={loadSample} />
 
       {error && (
         <p role="alert" className="mt-4 font-mono text-sm text-trace">

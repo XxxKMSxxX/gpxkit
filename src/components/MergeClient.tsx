@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
 import type { ParsedGPX } from "@we-gold/gpxjs";
 import { parseGpxFile, summarizeTracks, mergeTracks } from "@/lib/engine/gpx";
+import { DEMO_TRACK_PART1_URL, DEMO_TRACK_PART2_URL, fetchAsFile } from "@/src/lib/demoFiles";
 import FileDropZone from "./FileDropZone";
 import MapView from "./MapView";
 import TrackStats from "./TrackStats";
 import DownloadButton from "./DownloadButton";
+import SampleLink from "./SampleLink";
 
 type LoadedFile = { name: string; parsed: ParsedGPX };
 
@@ -31,6 +33,18 @@ export default function MergeClient() {
     setFiles((prev) => prev.filter((_, i) => i !== index));
   }, []);
 
+  const loadSample = useCallback(async () => {
+    try {
+      const [file1, file2] = await Promise.all([
+        fetchAsFile(DEMO_TRACK_PART1_URL, "sample-hike-part1.gpx"),
+        fetchAsFile(DEMO_TRACK_PART2_URL, "sample-hike-part2.gpx"),
+      ]);
+      await handleFiles([file1, file2]);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  }, [handleFiles]);
+
   const result = useMemo(() => {
     if (files.length < 2) return null;
     try {
@@ -54,6 +68,7 @@ export default function MergeClient() {
   return (
     <div>
       <FileDropZone onFiles={handleFiles} multiple />
+      <SampleLink label="Try sample tracks" onClick={loadSample} />
 
       {error && (
         <p role="alert" className="mt-4 font-mono text-sm text-trace">

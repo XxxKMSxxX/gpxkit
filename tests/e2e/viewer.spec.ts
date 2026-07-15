@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const sampleGpxPath = path.join(__dirname, "../fixtures/sample.gpx");
 
 test("dropping a GPX file renders stats and the track on the map", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/view");
 
   await expect(page.getByText("Drag & drop a GPX file")).toBeVisible();
 
@@ -25,7 +25,7 @@ test("dropping a GPX file renders stats and the track on the map", async ({ page
 });
 
 test("an invalid file shows an error instead of crashing", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/view");
 
   const fileInput = page.locator('input[type="file"]');
   await fileInput.setInputFiles({

@@ -1,17 +1,93 @@
 ---
 import Base from "@/src/layouts/Base.astro";
-import GpxViewer from "@/src/components/GpxViewer";
+
+const tools = [
+  {
+    href: "/view",
+    no: "001",
+    name: "View",
+    description: "Plot a track on a map and see its distance, elevation, and duration.",
+  },
+  {
+    href: "/merge",
+    no: "002",
+    name: "Merge",
+    description: "Combine two or more recordings into a single continuous track.",
+  },
+  {
+    href: "/simplify",
+    no: "003",
+    name: "Simplify",
+    description: "Reduce a track's point count while keeping its shape.",
+  },
+  {
+    href: "/trim",
+    no: "004",
+    name: "Trim",
+    description: "Crop to a point range — handy for cutting a sensitive start or end.",
+  },
+];
+
+const reasons = [
+  { label: "Nothing uploaded", detail: "Parsing happens entirely in your browser, on your device." },
+  { label: "No account, no limits", detail: "Free, with no file-size caps or sign-up wall." },
+  { label: "Works offline", detail: "Once the page has loaded, no connection is needed to use it." },
+  {
+    label: "Safe to edit before sharing",
+    detail: "Crop a sensitive segment (like the one near home) before it ever leaves your machine.",
+  },
+];
 ---
 
 <Base
-  title="GPXKit — View GPS Tracks in Your Browser"
-  description="Drop a GPX file to view your route on a map and see distance, elevation, and duration — entirely in your browser, nothing uploaded."
+  title="GPXKit — View, Merge, Simplify, and Trim GPS Tracks in Your Browser"
+  description="A client-side GPS toolkit: view, merge, simplify, and trim GPX tracks entirely in your browser. Nothing is ever uploaded."
 >
-  <p class="mb-1 font-mono text-xs tracking-[0.2em] text-faint uppercase">No. 001 — View</p>
-  <h1 class="mb-3 text-4xl font-bold tracking-tight">View a GPX track</h1>
-  <p class="mb-10 max-w-xl text-muted">
-    Drop a GPS track to see it plotted on a map with distance, elevation, and duration. Nothing
-    ever leaves your browser.
-  </p>
-  <GpxViewer client:only="react" />
+  <section class="mb-16">
+    <p class="mb-1 font-mono text-xs tracking-[0.2em] text-faint uppercase">Client-side GPS toolkit</p>
+    <h1 class="mb-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
+      View, merge, simplify, and trim GPS tracks — without leaving your browser.
+    </h1>
+    <p class="mb-8 max-w-xl text-muted">
+      GPXKit reads and edits GPX files entirely on your device. No upload, no account, no limits.
+    </p>
+    <a
+      href="/view"
+      class="inline-flex items-center gap-2 rounded-md bg-trace px-5 py-2.5 font-mono text-xs tracking-[0.05em] text-paper uppercase transition-colors hover:bg-trace-dim"
+    >
+      Open the viewer →
+    </a>
+  </section>
+
+  <section class="mb-16">
+    <h2 class="mb-6 font-mono text-xs tracking-[0.2em] text-faint uppercase">The toolkit</h2>
+    <div class="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+      {
+        tools.map((tool) => (
+          <a href={tool.href} class="group bg-panel p-5 transition-colors hover:bg-panel-raised">
+            <p class="mb-2 font-mono text-[0.65rem] tracking-[0.1em] text-faint">No. {tool.no}</p>
+            <h3 class="mb-1 text-lg font-bold text-paper">
+              {tool.name}
+              <span class="ml-1 text-trace opacity-0 transition-opacity group-hover:opacity-100">→</span>
+            </h3>
+            <p class="text-sm text-muted">{tool.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-6 font-mono text-xs tracking-[0.2em] text-faint uppercase">Why local-only</h2>
+    <dl class="grid gap-6 sm:grid-cols-2">
+      {
+        reasons.map((reason) => (
+          <div>
+            <dt class="mb-1 font-bold text-paper">{reason.label}</dt>
+            <dd class="text-sm text-muted">{reason.detail}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
 </Base>
