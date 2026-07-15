@@ -29,12 +29,13 @@ const tools = [
 ];
 
 const reasons = [
-  { label: "Nothing uploaded", detail: "Parsing happens entirely in your browser, on your device." },
-  { label: "No account, no limits", detail: "Free, with no file-size caps or sign-up wall." },
-  { label: "Works offline", detail: "Once the page has loaded, no connection is needed to use it." },
+  {
+    label: "Nothing uploaded",
+    detail: "Parsing happens entirely in your browser, on your device — not on a server you don't control.",
+  },
   {
     label: "Safe to edit before sharing",
-    detail: "Crop a sensitive segment (like the one near home) before it ever leaves your machine.",
+    detail: "Crop a sensitive segment before it ever leaves your machine, not after.",
   },
 ];
 ---
@@ -49,7 +50,8 @@ const reasons = [
       View, merge, simplify, and trim GPS tracks — without leaving your browser.
     </h1>
     <p class="mb-8 max-w-xl text-muted">
-      GPXKit reads and edits GPX files entirely on your device. No upload, no account, no limits.
+      A track's start and end points are your home and workplace. GPXKit never sends that file
+      anywhere — trim the sensitive part before you share it, not after.
     </p>
     <a
       href="/view"
@@ -79,6 +81,16 @@ const reasons = [
 
   <section>
     <h2 class="mb-6 font-mono text-xs tracking-[0.2em] text-faint uppercase">Why local-only</h2>
+
+    <div class="mb-8 rounded-lg border border-line bg-panel p-5">
+      <p class="mb-1 font-bold text-paper">Your commute is in that file</p>
+      <p class="text-sm text-muted">
+        A track's start and end points usually are home and work. In 2018, Strava's public heatmap
+        exposed secret military bases this way — the same data shape leaks the same way for
+        anyone.
+      </p>
+    </div>
+
     <dl class="grid gap-6 sm:grid-cols-2">
       {
         reasons.map((reason) => (

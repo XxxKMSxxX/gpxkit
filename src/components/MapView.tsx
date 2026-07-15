@@ -47,7 +47,7 @@ export default function MapView({ geoJson }: MapViewProps) {
     if (map === null || geoJson === null) return;
 
     const applyTrack = () => {
-      const data = geoJson as unknown as GeoJSON.FeatureCollection;
+      const data = withEndpointMarkers(geoJson) as unknown as GeoJSON.FeatureCollection;
       const existingSource = map.getSource(TRACK_SOURCE_ID) as maplibregl.GeoJSONSource | undefined;
 
       if (existingSource) {
@@ -88,6 +88,29 @@ export default function MapView({ geoJson }: MapViewProps) {
       <div ref={containerRef} className="h-[480px] w-full" />
     </div>
   );
+}
+
+/**
+ * Marks the track's start and end coordinates as Point features so they render
+ * on the map — the two points that matter most for privacy, since a track's
+ * start/end usually is home or work.
+ */
+function withEndpointMarkers(geoJson: GpxGeoJSON): object {
+  const lineCoords = geoJson.features
+    .filter((feature) => feature.geometry.type === "LineString")
+    .flatMap((feature) => feature.geometry.coordinates as (number | null)[][])
+    .filter((coord): coord is number[] => coord[0] != null && coord[1] != null);
+
+  const endpoints =
+    lineCoords.length > 0
+      ? [lineCoords[0], lineCoords[lineCoords.length - 1]].map((coord) => ({
+          type: "Feature" as const,
+          geometry: { type: "Point" as const, coordinates: coord },
+          properties: {},
+        }))
+      : [];
+
+  return { ...geoJson, features: [...geoJson.features, ...endpoints] };
 }
 
 /** Bounding box across every feature's coordinates, ignoring any null lng/lat. */

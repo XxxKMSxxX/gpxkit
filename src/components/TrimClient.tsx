@@ -8,25 +8,37 @@ import TrackStats from "./TrackStats";
 import DownloadButton from "./DownloadButton";
 import SampleLink from "./SampleLink";
 
+const SAMPLE_ENDPOINT_TRIM_POINTS = 10;
+
 export default function TrimClient() {
   const [parsed, setParsed] = useState<ParsedGPX | null>(null);
   const [fileName, setFileName] = useState("");
   const [range, setRange] = useState<[number, number] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isSample, setIsSample] = useState(false);
 
   const totalPoints = useMemo(
     () => (parsed ? parsed.tracks.flatMap((t) => t.points).length : 0),
     [parsed],
   );
 
-  const handleFiles = useCallback(async ([file]: File[]) => {
+  const handleFiles = useCallback(async ([file]: File[], sample = false) => {
     try {
       const text = await file.text();
       const p = parseGpxFile(text);
       const count = p.tracks.flatMap((t) => t.points).length;
       setParsed(p);
       setFileName(file.name);
-      setRange([0, Math.max(count - 1, 0)]);
+      setIsSample(sample);
+      // The sample is a loop, so its start and end are the same spot — like a
+      // real hike, that's the trailhead (or someone's front door). Default to
+      // already trimming that segment off, so the effect is visible immediately
+      // rather than requiring the visitor to guess what the sliders are for.
+      setRange(
+        sample && count > SAMPLE_ENDPOINT_TRIM_POINTS * 2
+          ? [SAMPLE_ENDPOINT_TRIM_POINTS, count - 1 - SAMPLE_ENDPOINT_TRIM_POINTS]
+          : [0, Math.max(count - 1, 0)],
+      );
       setError(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -38,7 +50,7 @@ export default function TrimClient() {
   const loadSample = useCallback(async () => {
     try {
       const file = await fetchAsFile(DEMO_TRACK_URL, "sample-hike.gpx");
-      await handleFiles([file]);
+      await handleFiles([file], true);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
@@ -75,6 +87,14 @@ export default function TrimClient() {
       {parsed && range && (
         <div className="mt-8">
           <p className="mb-4 font-mono text-xs tracking-[0.05em] text-faint">{fileName}</p>
+
+          {isSample && (
+            <p className="mb-6 max-w-xl text-sm text-muted">
+              This loop starts and ends at the same spot — for a real hike, that's usually the
+              trailhead parking lot or your front door. The sliders below are already trimming
+              that segment off before it ever leaves your browser.
+            </p>
+          )}
 
           <label className="mb-4 block max-w-xs">
             <span className="font-mono text-xs tracking-[0.05em] text-muted uppercase">
