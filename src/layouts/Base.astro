@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">GPXKit</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>GPXKit — GPS tracks stay in your browser. Nothing is ever uploaded.</p>
+    </footer>
+    <!-- Cloudflare Web Analytics: cookieless page-view beacon. Token set once the
+         gpxkit.com site is registered in the Cloudflare dashboard. -->
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token: "TODO-set-gpxkit-beacon-token" })}
+    ></script>
+  </body>
+</html>

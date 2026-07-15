@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="gpxkit test fixture" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Sample Track</name>
+    <trkseg>
+      <trkpt lat="35.6812" lon="139.7671">
+        <ele>10</ele>
+        <time>2026-07-15T00:00:00Z</time>
+      </trkpt>
+      <trkpt lat="35.6822" lon="139.7681">
+        <ele>15</ele>
+        <time>2026-07-15T00:05:00Z</time>
+      </trkpt>
+      <trkpt lat="35.6832" lon="139.7691">
+        <ele>8</ele>
+        <time>2026-07-15T00:10:00Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
