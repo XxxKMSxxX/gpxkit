@@ -1,0 +1,16 @@
+---
+import Base from "@/src/layouts/Base.astro";
+import TrimClient from "@/src/components/TrimClient";
+---
+
+<Base
+  title="Trim GPX Tracks Online — GPXKit"
+  description="Crop a GPS track to a point range — e.g. cut off a sensitive start/end near home before sharing. Entirely in your browser, nothing uploaded."
+>
+  <h1>Trim a GPX Track</h1>
+  <p>
+    Crop a track to a range of points — handy for cutting off a sensitive start or end (like near
+    home) before sharing a route publicly. Nothing ever leaves your browser.
+  </p>
+  <TrimClient client:only="react" />
+</Base>

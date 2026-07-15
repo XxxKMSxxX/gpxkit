@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseGpxFile, summarizeTracks, mergeTracks, simplifyTrack } from "@/lib/engine/gpx";
+import { parseGpxFile, summarizeTracks, mergeTracks, simplifyTrack, trimTrack } from "@/lib/engine/gpx";
 import sampleGpx from "../fixtures/sample.gpx?raw";
 import sampleGpx2 from "../fixtures/sample2.gpx?raw";
 import denseGpx from "../fixtures/dense.gpx?raw";
@@ -130,5 +130,40 @@ describe("simplifyTrack", () => {
     const parsed = parseGpxFile(sampleGpx);
     parsed.tracks[0].points = [];
     expect(() => simplifyTrack({ parsed, toleranceMeters: 5 })).toThrow(/No points to simplify/);
+  });
+});
+
+describe("trimTrack", () => {
+  it("crops the track to the given inclusive index range", () => {
+    const parsed = parseGpxFile(denseGpx);
+    const original = parsed.tracks[0].points;
+
+    const { trimmed, gpxXml, originalPointCount, trimmedPointCount } = trimTrack({
+      parsed,
+      startIndex: 2,
+      endIndex: 5,
+    });
+
+    expect(originalPointCount).toBe(10);
+    expect(trimmedPointCount).toBe(4);
+    expect(trimmed.tracks[0].name).toBe("Trimmed Track");
+    expect(trimmed.tracks[0].points[0].latitude).toBe(original[2].latitude);
+    expect(trimmed.tracks[0].points[3].latitude).toBe(original[5].latitude);
+
+    const reparsed = parseGpxFile(gpxXml);
+    expect(summarizeTracks(reparsed).pointCount).toBe(4);
+  });
+
+  it("throws for an out-of-range or inverted range", () => {
+    const parsed = parseGpxFile(denseGpx);
+    expect(() => trimTrack({ parsed, startIndex: -1, endIndex: 3 })).toThrow(/Invalid trim range/);
+    expect(() => trimTrack({ parsed, startIndex: 5, endIndex: 100 })).toThrow(/Invalid trim range/);
+    expect(() => trimTrack({ parsed, startIndex: 5, endIndex: 2 })).toThrow(/Invalid trim range/);
+  });
+
+  it("throws when there are no points to trim", () => {
+    const parsed = parseGpxFile(sampleGpx);
+    parsed.tracks[0].points = [];
+    expect(() => trimTrack({ parsed, startIndex: 0, endIndex: 0 })).toThrow(/No points to trim/);
   });
 });
