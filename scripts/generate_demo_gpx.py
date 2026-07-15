@@ -15,8 +15,8 @@ OUT_DIR = Path(__file__).parent.parent / "public" / "demo"
 # Roughly a ridge-and-back loop: start low, climb over ~40% of the route,
 # ridge walk, descend back down. Centered on an arbitrary point (not a real
 # recorded location).
-CENTER_LAT = 35.55
-CENTER_LON = 138.95
+CENTER_LAT = 39.15
+CENTER_LON = -106.45
 START_TIME = datetime(2026, 5, 3, 6, 30, 0, tzinfo=timezone.utc)
 POINT_INTERVAL_SECONDS = 20
 WALKING_SPEED_MPS = 1.1  # ~4 km/h
