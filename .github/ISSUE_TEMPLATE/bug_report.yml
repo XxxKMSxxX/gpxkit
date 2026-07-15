@@ -1,0 +1,25 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, and what went wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: file
+    attributes:
+      label: About the GPX file (if relevant)
+      description: >
+        Your file never leaves your device, so we cannot reproduce with it.
+        Please share what you can: point count, whether it has <time>/<ele>
+        tags, the device/app that recorded or exported it, and the exact
+        error message shown.
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: e.g. Chrome 143 on macOS 15
