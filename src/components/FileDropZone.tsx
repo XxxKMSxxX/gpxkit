@@ -36,17 +36,28 @@ export default function FileDropZone({ onFiles, multiple = false }: FileDropZone
         setIsDragOver(false);
         handleFiles(e.dataTransfer.files);
       }}
-      style={{
-        border: `2px dashed ${isDragOver ? "#e63946" : "#999"}`,
-        borderRadius: 8,
-        padding: "2.5rem",
-        textAlign: "center",
-        cursor: "pointer",
-      }}
+      className={`group flex cursor-pointer flex-col items-center gap-3 rounded-lg border border-dashed px-8 py-14 text-center transition-colors ${
+        isDragOver ? "border-trace bg-trace/5" : "border-line bg-panel hover:border-muted"
+      }`}
     >
-      <p>Drag & drop {multiple ? "GPX files" : "a GPX file"} here, or click to browse</p>
-      <p style={{ fontSize: "0.85rem", color: "#666" }}>
-        Files are processed in your browser — nothing is ever uploaded.
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 128 128"
+        fill="none"
+        className={isDragOver ? "text-trace" : "text-faint transition-colors group-hover:text-muted"}
+      >
+        <path
+          d="M64 12c-19.9 0-36 16.1-36 36 0 27 36 68 36 68s36-41 36-68c0-19.9-16.1-36-36-36Z"
+          fill="currentColor"
+        />
+        <circle cx="64" cy="48" r="14" fill="#131922" />
+      </svg>
+      <p className="text-paper">
+        Drag &amp; drop {multiple ? "GPX files" : "a GPX file"} here, or click to browse
+      </p>
+      <p className="font-mono text-xs tracking-[0.05em] text-faint uppercase">
+        Processed in your browser — nothing is ever uploaded
       </p>
       <input
         ref={inputRef}
@@ -54,7 +65,7 @@ export default function FileDropZone({ onFiles, multiple = false }: FileDropZone
         accept=".gpx"
         multiple={multiple}
         onChange={(e) => handleFiles(e.target.files)}
-        style={{ display: "none" }}
+        className="hidden"
       />
     </div>
   );

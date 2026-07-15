@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/*
+  "Quiet Cartography" — a route reduced to its purest geometry is already a
+  complete composition. Dark instrument-panel chrome frames a bright map
+  "window"; the brand red only ever marks the trace itself.
+*/
+@font-face {
+  font-family: "Outfit";
+  src: url("/fonts/Outfit-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Outfit";
+  src: url("/fonts/Outfit-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-ink: #0d1117;
+  --color-panel: #131922;
+  --color-panel-raised: #1a212c;
+  --color-line: #232b38;
+  --color-paper: #f1f1f1;
+  --color-muted: #7d8798;
+  --color-faint: #4b5563;
+  --color-trace: #e63946;
+  --color-trace-dim: #b3283a;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-display);
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center -1px;
+    background-attachment: fixed;
+  }
+  a {
+    color: inherit;
+  }
+}

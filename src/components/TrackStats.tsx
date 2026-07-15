@@ -20,11 +20,11 @@ export default function TrackStats({ summary }: TrackStatsProps) {
   ];
 
   return (
-    <dl style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", margin: "1rem 0" }}>
+    <dl className="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-5">
       {stats.map((s) => (
-        <div key={s.label}>
-          <dt style={{ fontSize: "0.8rem", color: "#666" }}>{s.label}</dt>
-          <dd style={{ margin: 0, fontSize: "1.25rem", fontWeight: 600 }}>{s.value}</dd>
+        <div key={s.label} className="bg-panel px-4 py-3">
+          <dt className="font-mono text-[0.65rem] tracking-[0.1em] text-faint uppercase">{s.label}</dt>
+          <dd className="mt-1 font-mono text-lg font-bold text-paper">{s.value}</dd>
         </div>
       ))}
     </dl>

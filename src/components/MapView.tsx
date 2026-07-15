@@ -66,7 +66,12 @@ export default function MapView({ geoJson }: MapViewProps) {
           type: "circle",
           source: TRACK_SOURCE_ID,
           filter: ["==", ["geometry-type"], "Point"],
-          paint: { "circle-color": "#1d3557", "circle-radius": 5 },
+          paint: {
+            "circle-color": "#f1f1f1",
+            "circle-radius": 5,
+            "circle-stroke-color": "#e63946",
+            "circle-stroke-width": 1.5,
+          },
         });
       }
 
@@ -78,7 +83,11 @@ export default function MapView({ geoJson }: MapViewProps) {
     else map.once("load", applyTrack);
   }, [geoJson]);
 
-  return <div ref={containerRef} style={{ width: "100%", height: "480px", borderRadius: 8 }} />;
+  return (
+    <div className="overflow-hidden rounded-lg border border-line">
+      <div ref={containerRef} className="h-[480px] w-full" />
+    </div>
+  );
 }
 
 /** Bounding box across every feature's coordinates, ignoring any null lng/lat. */

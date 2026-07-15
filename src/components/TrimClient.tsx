@@ -4,6 +4,7 @@ import { parseGpxFile, summarizeTracks, trimTrack } from "@/lib/engine/gpx";
 import FileDropZone from "./FileDropZone";
 import MapView from "./MapView";
 import TrackStats from "./TrackStats";
+import DownloadButton from "./DownloadButton";
 
 export default function TrimClient() {
   const [parsed, setParsed] = useState<ParsedGPX | null>(null);
@@ -54,53 +55,53 @@ export default function TrimClient() {
       <FileDropZone onFiles={handleFiles} />
 
       {error && (
-        <p role="alert" style={{ color: "#e63946", marginTop: "1rem" }}>
+        <p role="alert" className="mt-4 font-mono text-sm text-trace">
           {error}
         </p>
       )}
 
       {parsed && range && (
-        <div style={{ marginTop: "1.5rem" }}>
-          <p style={{ color: "#666", fontSize: "0.9rem" }}>{fileName}</p>
+        <div className="mt-8">
+          <p className="mb-4 font-mono text-xs tracking-[0.05em] text-faint">{fileName}</p>
 
-          <label style={{ display: "block", marginBottom: "0.5rem" }}>
-            Start point: {range[0]}
+          <label className="mb-4 block max-w-xs">
+            <span className="font-mono text-xs tracking-[0.05em] text-muted uppercase">
+              Start point: <span className="text-paper">{range[0]}</span>
+            </span>
             <input
               type="range"
               min={0}
               max={totalPoints - 1}
               value={range[0]}
               onChange={(e) => setRange([Math.min(Number(e.target.value), range[1]), range[1]])}
-              style={{ display: "block", width: "100%", maxWidth: 300 }}
+              className="mt-2 block w-full accent-trace"
             />
           </label>
-          <label style={{ display: "block", marginBottom: "1rem" }}>
-            End point: {range[1]}
+          <label className="mb-6 block max-w-xs">
+            <span className="font-mono text-xs tracking-[0.05em] text-muted uppercase">
+              End point: <span className="text-paper">{range[1]}</span>
+            </span>
             <input
               type="range"
               min={0}
               max={totalPoints - 1}
               value={range[1]}
               onChange={(e) => setRange([range[0], Math.max(Number(e.target.value), range[0])])}
-              style={{ display: "block", width: "100%", maxWidth: 300 }}
+              className="mt-2 block w-full accent-trace"
             />
           </label>
 
           {result && (
             <>
-              <p>
-                Keeping {result.trimmedPointCount.toLocaleString()} of{" "}
+              <p className="mb-4 font-mono text-sm text-muted">
+                Keeping <span className="text-paper">{result.trimmedPointCount.toLocaleString()}</span> of{" "}
                 {result.originalPointCount.toLocaleString()} points
               </p>
               <TrackStats summary={result.summary} />
               {downloadUrl && (
-                <a
-                  href={downloadUrl}
-                  download="trimmed.gpx"
-                  style={{ display: "inline-block", marginBottom: "1rem" }}
-                >
+                <DownloadButton href={downloadUrl} fileName="trimmed.gpx">
                   Download trimmed.gpx
-                </a>
+                </DownloadButton>
               )}
               <MapView geoJson={result.geoJson} />
             </>

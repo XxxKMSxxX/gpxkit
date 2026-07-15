@@ -1,4 +1,6 @@
 ---
+import "@/src/styles/global.css";
+
 interface Props {
   title: string;
   description: string;
@@ -7,6 +9,13 @@ interface Props {
 const { title, description } = Astro.props;
 const ogImageUrl = new URL("/og-image.png", Astro.site).toString();
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const navLinks = [
+  { href: "/", label: "View" },
+  { href: "/merge", label: "Merge" },
+  { href: "/simplify", label: "Simplify" },
+  { href: "/trim", label: "Trim" },
+];
 ---
 
 <!doctype html>
@@ -31,20 +40,38 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="/">GPXKit</a>
-        <a href="/merge">Merge</a>
-        <a href="/simplify">Simplify</a>
-        <a href="/trim">Trim</a>
-      </nav>
-    </header>
-    <main>
-      <slot />
-    </main>
-    <footer>
-      <p>GPXKit — GPS tracks stay in your browser. Nothing is ever uploaded.</p>
-    </footer>
+    <div class="mx-auto flex min-h-screen max-w-4xl flex-col px-6">
+      <header class="flex items-center justify-between border-b border-line py-6">
+        <a href="/" class="text-2xl font-bold tracking-tight">
+          GPX<span class="text-trace">Kit</span>
+        </a>
+        <nav class="flex gap-5 font-mono text-xs tracking-[0.15em] uppercase">
+          {
+            navLinks.map((link) => (
+              <a
+                href={link.href}
+                class={
+                  Astro.url.pathname === link.href
+                    ? "text-trace"
+                    : "text-muted transition-colors hover:text-paper"
+                }
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+
+      <main class="flex-1 py-10">
+        <slot />
+      </main>
+
+      <footer class="border-t border-line py-6 font-mono text-xs tracking-[0.1em] text-faint uppercase">
+        <p>GPXKit — GPS tracks stay in your browser. Nothing is ever uploaded.</p>
+      </footer>
+    </div>
+
     <!-- Cloudflare Web Analytics: cookieless page-view beacon. Token set once the
          gpxkit.com site is registered in the Cloudflare dashboard. -->
     <script

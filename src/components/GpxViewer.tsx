@@ -33,14 +33,14 @@ export default function GpxViewer() {
       <FileDropZone onFiles={handleFiles} />
 
       {state.status === "error" && (
-        <p role="alert" style={{ color: "#e63946", marginTop: "1rem" }}>
+        <p role="alert" className="mt-4 font-mono text-sm text-trace">
           {state.message}
         </p>
       )}
 
       {state.status === "loaded" && (
-        <div style={{ marginTop: "1.5rem" }}>
-          <p style={{ color: "#666", fontSize: "0.9rem" }}>{state.fileName}</p>
+        <div className="mt-8">
+          <p className="mb-3 font-mono text-xs tracking-[0.05em] text-faint">{state.fileName}</p>
           <TrackStats summary={state.summary} />
           <MapView geoJson={state.geoJson} />
         </div>

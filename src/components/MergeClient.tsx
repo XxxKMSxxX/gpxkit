@@ -4,6 +4,7 @@ import { parseGpxFile, summarizeTracks, mergeTracks } from "@/lib/engine/gpx";
 import FileDropZone from "./FileDropZone";
 import MapView from "./MapView";
 import TrackStats from "./TrackStats";
+import DownloadButton from "./DownloadButton";
 
 type LoadedFile = { name: string; parsed: ParsedGPX };
 
@@ -55,20 +56,20 @@ export default function MergeClient() {
       <FileDropZone onFiles={handleFiles} multiple />
 
       {error && (
-        <p role="alert" style={{ color: "#e63946", marginTop: "1rem" }}>
+        <p role="alert" className="mt-4 font-mono text-sm text-trace">
           {error}
         </p>
       )}
 
       {files.length > 0 && (
-        <ul style={{ marginTop: "1rem", paddingLeft: "1.25rem" }}>
+        <ul className="mt-4 divide-y divide-line overflow-hidden rounded-lg border border-line bg-panel">
           {files.map((f, i) => (
-            <li key={`${f.name}-${i}`}>
-              {f.name}{" "}
+            <li key={`${f.name}-${i}`} className="flex items-center justify-between px-4 py-2">
+              <span className="font-mono text-xs text-muted">{f.name}</span>
               <button
                 type="button"
                 onClick={() => removeFile(i)}
-                style={{ marginLeft: "0.5rem", fontSize: "0.8rem" }}
+                className="font-mono text-[0.65rem] tracking-[0.05em] text-faint uppercase transition-colors hover:text-trace"
               >
                 Remove
               </button>
@@ -78,21 +79,15 @@ export default function MergeClient() {
       )}
 
       {files.length === 1 && (
-        <p style={{ color: "#666", fontSize: "0.9rem", marginTop: "0.5rem" }}>
-          Add at least one more GPX file to merge.
-        </p>
+        <p className="mt-3 font-mono text-xs text-faint">Add at least one more GPX file to merge.</p>
       )}
 
       {result && downloadUrl && (
-        <div style={{ marginTop: "1.5rem" }}>
+        <div className="mt-8">
           <TrackStats summary={result.summary} />
-          <a
-            href={downloadUrl}
-            download="merged.gpx"
-            style={{ display: "inline-block", marginBottom: "1rem" }}
-          >
+          <DownloadButton href={downloadUrl} fileName="merged.gpx">
             Download merged.gpx
-          </a>
+          </DownloadButton>
           <MapView geoJson={result.geoJson} />
         </div>
       )}

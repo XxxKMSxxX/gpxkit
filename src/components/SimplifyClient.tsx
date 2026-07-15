@@ -4,6 +4,7 @@ import { parseGpxFile, summarizeTracks, simplifyTrack } from "@/lib/engine/gpx";
 import FileDropZone from "./FileDropZone";
 import MapView from "./MapView";
 import TrackStats from "./TrackStats";
+import DownloadButton from "./DownloadButton";
 
 const DEFAULT_TOLERANCE_METERS = 10;
 
@@ -50,17 +51,19 @@ export default function SimplifyClient() {
       <FileDropZone onFiles={handleFiles} />
 
       {error && (
-        <p role="alert" style={{ color: "#e63946", marginTop: "1rem" }}>
+        <p role="alert" className="mt-4 font-mono text-sm text-trace">
           {error}
         </p>
       )}
 
       {parsed && (
-        <div style={{ marginTop: "1.5rem" }}>
-          <p style={{ color: "#666", fontSize: "0.9rem" }}>{fileName}</p>
+        <div className="mt-8">
+          <p className="mb-4 font-mono text-xs tracking-[0.05em] text-faint">{fileName}</p>
 
-          <label style={{ display: "block", marginBottom: "1rem" }}>
-            Tolerance: {tolerance} m
+          <label className="mb-6 block max-w-xs">
+            <span className="font-mono text-xs tracking-[0.05em] text-muted uppercase">
+              Tolerance: <span className="text-paper">{tolerance} m</span>
+            </span>
             <input
               type="range"
               min={0}
@@ -68,25 +71,21 @@ export default function SimplifyClient() {
               step={1}
               value={tolerance}
               onChange={(e) => setTolerance(Number(e.target.value))}
-              style={{ display: "block", width: "100%", maxWidth: 300 }}
+              className="mt-2 block w-full accent-trace"
             />
           </label>
 
           {result && (
             <>
-              <p>
+              <p className="mb-4 font-mono text-sm text-muted">
                 {result.originalPointCount.toLocaleString()} → {result.simplifiedPointCount.toLocaleString()}{" "}
-                points ({reduction}% reduction)
+                points <span className="text-trace">({reduction}% reduction)</span>
               </p>
               <TrackStats summary={result.summary} />
               {downloadUrl && (
-                <a
-                  href={downloadUrl}
-                  download="simplified.gpx"
-                  style={{ display: "inline-block", marginBottom: "1rem" }}
-                >
+                <DownloadButton href={downloadUrl} fileName="simplified.gpx">
                   Download simplified.gpx
-                </a>
+                </DownloadButton>
               )}
               <MapView geoJson={result.geoJson} />
             </>
