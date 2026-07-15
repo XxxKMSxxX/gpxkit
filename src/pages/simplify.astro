@@ -1,0 +1,13 @@
+---
+import Base from "@/src/layouts/Base.astro";
+import SimplifyClient from "@/src/components/SimplifyClient";
+---
+
+<Base
+  title="Simplify GPX Tracks Online — GPXKit"
+  description="Reduce the number of points in a GPS track while preserving its shape, entirely in your browser. Nothing is uploaded."
+>
+  <h1>Simplify a GPX Track</h1>
+  <p>Reduce the number of points in a track while keeping its shape. Nothing ever leaves your browser.</p>
+  <SimplifyClient client:only="react" />
+</Base>

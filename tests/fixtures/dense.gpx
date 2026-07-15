@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="gpxkit test fixture" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk>
+    <name>Dense Track</name>
+    <trkseg>
+      <trkpt lat="35.0000" lon="139.0000"><ele>0</ele></trkpt>
+      <trkpt lat="35.0010" lon="139.0002"><ele>0</ele></trkpt>
+      <trkpt lat="35.0021" lon="138.9999"><ele>0</ele></trkpt>
+      <trkpt lat="35.0030" lon="139.0001"><ele>0</ele></trkpt>
+      <trkpt lat="35.0040" lon="139.0000"><ele>0</ele></trkpt>
+      <trkpt lat="35.0051" lon="139.0002"><ele>0</ele></trkpt>
+      <trkpt lat="35.0060" lon="138.9999"><ele>0</ele></trkpt>
+      <trkpt lat="35.0070" lon="139.0001"><ele>0</ele></trkpt>
+      <trkpt lat="35.0080" lon="139.0000"><ele>0</ele></trkpt>
+      <trkpt lat="35.0090" lon="139.0000"><ele>0</ele></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

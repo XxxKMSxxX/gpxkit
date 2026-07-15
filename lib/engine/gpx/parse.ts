@@ -1,5 +1,7 @@
-import { parseGPX } from "@we-gold/gpxjs";
-import type { ParsedGPX } from "@we-gold/gpxjs";
+import { parseGPX, calculateDistance, calculateDuration, calculateElevation, calculateSlopes } from "@we-gold/gpxjs";
+import type { Options, ParsedGPX, Point } from "@we-gold/gpxjs";
+
+const DEFAULT_OPTIONS: Options = { removeEmptyFields: true, avgSpeedThreshold: 2.15e-4 };
 
 /**
  * Parses raw GPX XML text into a structured track.
@@ -33,5 +35,29 @@ export function parseGpxFile(gpxSource: string): ParsedGPX {
     throw new Error("Failed to parse GPX file: missing <gpx> root element");
   }
 
+  // gpxjs's default `removeEmptyFields: true` option deletes a point's
+  // `time`/`elevation` outright (leaving them `undefined`) instead of the
+  // documented `Date | null` / `number | null` when a <trkpt> has no
+  // <time>/<ele>. Its own calculateDuration/calculateElevation helpers only
+  // guard against `!== null`, not `undefined` — calculateDuration throws
+  // ("Cannot read properties of undefined (reading 'getTime')") and
+  // calculateElevation silently produces NaN gain/loss. Normalizing points
+  // back to `null` here, then recomputing the track/route-level stats,
+  // fixes this once at the parse boundary so every downstream engine
+  // function can rely on the documented contract rather than re-guard
+  // against `undefined` itself.
+  for (const trackOrRoute of [...parsed.tracks, ...parsed.routes]) {
+    trackOrRoute.points = trackOrRoute.points.map(normalizePoint);
+    trackOrRoute.distance = calculateDistance(trackOrRoute.points);
+    trackOrRoute.duration = calculateDuration(trackOrRoute.points, trackOrRoute.distance, DEFAULT_OPTIONS);
+    trackOrRoute.elevation = calculateElevation(trackOrRoute.points);
+    trackOrRoute.slopes = calculateSlopes(trackOrRoute.points, trackOrRoute.distance.cumulative);
+  }
+  parsed.waypoints = parsed.waypoints.map(normalizePoint);
+
   return parsed;
+}
+
+function normalizePoint(point: Point): Point {
+  return { ...point, time: point.time ?? null, elevation: point.elevation ?? null };
 }
