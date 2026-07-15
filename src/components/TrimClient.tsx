@@ -92,7 +92,7 @@ export default function TrimClient() {
             <p className="mb-6 max-w-xl text-sm text-muted">
               This loop starts and ends at the same spot — for a real hike, that's usually the
               trailhead parking lot or your front door. The sliders below are already trimming
-              that segment off before it ever leaves your browser.
+              that segment off, before the file is ever uploaded anywhere.
             </p>
           )}
 

@@ -5,13 +5,14 @@ import GpxViewer from "@/src/components/GpxViewer";
 
 <Base
   title="GPXKit — View GPS Tracks in Your Browser"
-  description="Drop a GPX file to view your route on a map and see distance, elevation, and duration — entirely in your browser, nothing uploaded."
+  description="Someone sent you a .gpx file? Drop it in to see the route on a map with distance, elevation, and duration — no account, no import."
 >
   <p class="mb-1 font-mono text-xs tracking-[0.2em] text-faint uppercase">No. 001 — View</p>
   <h1 class="mb-3 text-4xl font-bold tracking-tight">View a GPX track</h1>
   <p class="mb-10 max-w-xl text-muted">
-    Drop a GPS track to see it plotted on a map with distance, elevation, and duration. Nothing
-    ever leaves your browser.
+    Someone sent you a .gpx file — a friend's route, a race course, a hike worth trying — and you
+    just want to see it. Drop it in for a map with distance, elevation, and duration. No account,
+    no import.
   </p>
   <GpxViewer client:only="react" />
 </Base>

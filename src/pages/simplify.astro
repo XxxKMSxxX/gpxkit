@@ -5,13 +5,14 @@ import SimplifyClient from "@/src/components/SimplifyClient";
 
 <Base
   title="Simplify GPX Tracks Online — GPXKit"
-  description="Reduce the number of points in a GPS track while preserving its shape, entirely in your browser. Nothing is uploaded."
+  description="Dense GPX files get silently thinned when other tools import them. Simplify reduces point count on your own terms, entirely in your browser."
 >
   <p class="mb-1 font-mono text-xs tracking-[0.2em] text-faint uppercase">No. 003 — Simplify</p>
   <h1 class="mb-3 text-4xl font-bold tracking-tight">Simplify a GPX track</h1>
   <p class="mb-10 max-w-xl text-muted">
-    Reduce the number of points in a track while keeping its shape. Nothing ever leaves your
-    browser.
+    Import a dense recording into Garmin Connect or a similar tool and it may get silently thinned
+    — losing the shape or turns you actually want. Simplify it yourself first, so you control
+    what's kept.
   </p>
   <SimplifyClient client:only="react" />
 </Base>

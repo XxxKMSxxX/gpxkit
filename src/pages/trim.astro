@@ -5,13 +5,14 @@ import TrimClient from "@/src/components/TrimClient";
 
 <Base
   title="Trim GPX Tracks Online — GPXKit"
-  description="Crop a GPS track to a point range — e.g. cut off a sensitive start/end near home before sharing. Entirely in your browser, nothing uploaded."
+  description="Crop a sensitive start or end from a GPS track before it's ever uploaded anywhere — not after, like Strava's crop tool. Entirely in your browser."
 >
   <p class="mb-1 font-mono text-xs tracking-[0.2em] text-faint uppercase">No. 004 — Trim</p>
   <h1 class="mb-3 text-4xl font-bold tracking-tight">Trim a GPX track</h1>
   <p class="mb-10 max-w-xl text-muted">
-    Crop a track to a range of points — handy for cutting off a sensitive start or end (like near
-    home) before sharing a route publicly. Nothing ever leaves your browser.
+    Strava's own crop tool only works after your file is already on their servers. Cut a sensitive
+    start or end — or the extra minutes you forgot to stop recording — before the file is ever
+    uploaded anywhere.
   </p>
   <TrimClient client:only="react" />
 </Base>

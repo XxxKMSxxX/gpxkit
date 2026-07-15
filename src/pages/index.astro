@@ -6,25 +6,27 @@ const tools = [
     href: "/view",
     no: "001",
     name: "View",
-    description: "Plot a track on a map and see its distance, elevation, and duration.",
+    description: "Someone sent you a .gpx file? Drop it in and see the route on a map — no account needed.",
   },
   {
     href: "/merge",
     no: "002",
     name: "Merge",
-    description: "Combine two or more recordings into a single continuous track.",
+    description:
+      "Watch died mid-hike, or a break split your recording in two? Stitch the pieces back into one track.",
   },
   {
     href: "/simplify",
     no: "003",
     name: "Simplify",
-    description: "Reduce a track's point count while keeping its shape.",
+    description:
+      "Dense recordings get silently thinned when other tools import them. Simplify keeps the shape you chose.",
   },
   {
     href: "/trim",
     no: "004",
     name: "Trim",
-    description: "Crop to a point range — handy for cutting a sensitive start or end.",
+    description: "Cut a sensitive start or end before the file is ever uploaded anywhere — not after.",
   },
 ];
 
@@ -86,8 +88,9 @@ const reasons = [
       <p class="mb-1 font-bold text-paper">Your commute is in that file</p>
       <p class="text-sm text-muted">
         A track's start and end points usually are home and work. In 2018, Strava's public heatmap
-        exposed secret military bases this way — the same data shape leaks the same way for
-        anyone.
+        exposed secret military bases this way; in 2025, it leaked the home addresses of a head of
+        state's own bodyguards. Strava's crop tool only works after your file is already on their
+        servers — GPXKit's works before it ever leaves your browser.
       </p>
     </div>
 

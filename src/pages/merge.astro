@@ -5,12 +5,14 @@ import MergeClient from "@/src/components/MergeClient";
 
 <Base
   title="Merge GPX Files Online — GPXKit"
-  description="Combine multiple GPX tracks into a single file, entirely in your browser. Nothing is uploaded."
+  description="Watch timed out during a break, or your phone rebooted mid-hike? Stitch two recordings into one continuous track, entirely in your browser."
 >
   <p class="mb-1 font-mono text-xs tracking-[0.2em] text-faint uppercase">No. 002 — Merge</p>
   <h1 class="mb-3 text-4xl font-bold tracking-tight">Merge GPX files</h1>
   <p class="mb-10 max-w-xl text-muted">
-    Combine two or more GPX tracks into one continuous file. Nothing ever leaves your browser.
+    A timeout during a break, a dead battery, or a rebooted phone leaves you with two files for
+    what was really one activity — and neither Strava nor Garmin Connect can stitch them back
+    together. Merge does, without uploading anything.
   </p>
   <MergeClient client:only="react" />
 </Base>
